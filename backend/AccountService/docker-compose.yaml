@@ -1,0 +1,8 @@
+services:
+  postgres:
+    image: postgres:alpine
+    environment:
+      POSTGRES_PASSWORD: "123456"
+      POSTGRES_DB: "AccountServiceDB"
+    ports:
+      - "5432:5432"
