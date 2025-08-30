@@ -5,7 +5,7 @@ public class Account
     readonly Guid _Id;
     private Name _Name;
     private Document _Document;
-    private Password _Password;
+    private Password? _Password;
 
     public Account(string name, string document, string password)
     {
@@ -15,12 +15,11 @@ public class Account
         _Id = Guid.NewGuid();
     }
 
-    public Account(Guid id, string name, string document, string password)
+    public Account(Guid id, string name, string document)
     {
         _Id = id;
         _Name = new Name(name);
         _Document = new Document(document);
-        _Password = new Password(password);
     }
 
     public Guid Id
@@ -40,7 +39,7 @@ public class Account
 
     public string Password
     {
-        get { return _Password.Valor; }
+        get { return _Password?.Valor ?? "" ; }
     }
 
 }
