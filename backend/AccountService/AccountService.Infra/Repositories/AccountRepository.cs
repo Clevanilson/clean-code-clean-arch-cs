@@ -2,6 +2,7 @@ using AccountService.Infra.Data;
 using AccountService.Infra.Models;
 using AccountService.Domain;
 using AccountService.Application.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccountService.Infra.Repositories;
 
@@ -33,5 +34,14 @@ public class AccountRepository : IAccountRepoistory
         var accountModel = await _context.Accounts.FindAsync(id);
         if (accountModel == null) return null;
         return new Account(accountModel.Id, accountModel.Name, accountModel.Document);
+    }
+
+    public async Task<Account?> GetByDocumentAsync(string document)
+    {
+        var account = await _context.Accounts
+            .Where(model => model.Document == document)
+            .Select(model => new Account(model.Id, model.Name, model.Document))
+            .FirstOrDefaultAsync();
+        return account;
     }
 }
